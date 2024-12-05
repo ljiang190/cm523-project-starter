@@ -1,25 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- PUT A TITLE IN HERE -->
-    <title>Linda</title>
-    <!-- PUT A DESCRIPTION IN HERE -->
-    <meta name="description" content="describe content of the page here...." />
-    <!-- LINK TO NORMALIZE (FOR CONSISTENCY) -->
-    <link rel="stylesheet" href="styles.normalize.css" />
-    <!-- LINK TO ANY FRAMEWORK STYLES HERE-->
-    <!-- LINK TO YOUR STYLES -->
-    <link rel="stylesheet" href="styles/styles.css" />
-    <!-- LINK TO EXTERNAL JS LIBRARIES HERE -->
-    <!-- LINK TO YOUR JS HERE. NOTE THE DEFER ATTRIBUTE. -->
-    <script src="scripts/scripts.js" defer></script>
-  </head>
-  <body>
-    <!-- YOUR HTML GOES HERE -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarot Card Outfit Game</title>
+</head>
+<body>
+<h1>Tarot Card Outfit Generator</h1>
+<p>Click on three cards to reveal your outfit for today!</p>
 
-    <!-- YOUR EXTERNAL PLUG-IN MAY ASK YOU TO PUT A SCRIPT TAG HERE. -->
-  </body>
+
+
+
+<div class="tarot-container">
+  <div class="tarot-card" onclick="flipCard(this, 0)">
+    <div class="card-inner">
+      <div class="card-back"></div>
+      <div class="card-front"></div>
+     <div class="text"></div>
+
+
+    </div>
+  </div>
+  <div class="tarot-card" onclick="flipCard(this, 1)">
+    <div class="card-inner">
+      <div class="card-back"></div>
+      <div class="card-front"></div>
+      <div class="text"></div>
+    </div>
+   
+  </div>
+  <div class="tarot-card" onclick="flipCard(this, 2)">
+    <div class="card-inner">
+       <div class="card-back"></div>
+       <div  div class="card-front"></div>
+       <div class="text"></div>
+
+
+    </div>
+  </div>
+</div>
+<button onclick="resetGame()">Reset</button>
+<div id="outfitSuggestion"></div>
+<style>
+  body {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background-color: #1d1b31;
+font-family: 'Spectral SC', serif;
+margin: 0;
+flex-direction: column;
+text-align: center;
+color: #f8f0e3;
+}
+
+
+
+
+h1 {
+color: #f8f0e3;
+font-size: 2.5em;
+font-family: 'Cinzel', serif;
+text-shadow: 0 0 10px rgba(255, 223, 128, 0.8), 0 0 20px rgba(255, 223, 128, 0.6);
+margin-bottom: 10px;
+}
+
+
+
+
+p {
+color: #d9d6d2;
+font-size: 1.2em;
+margin-bottom: 20px;
+}
+
+
+
+
+.tarot-container {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+}
+
+
+
+
+.tarot-card {
+width: 120px;
+height: 180px;
+background-color: #2e2b47;
+border-radius: 10px;
+cursor: pointer;
+perspective: 1000px;
+transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+
+
+
+.tarot-card:hover {
+transform: scale(1.08);
+box-shadow: 0 0 15px rgba(255, 223, 128, 0.6), 0 0 30px rgba(255, 223, 128, 0.4);
+}
+
+
+
+
+.card-inner {
+width: 100%;
+height: 100%;
+transform-style: preserve-3d;
+transition: transform 0.6s;
+position: relative;
+}
+
+
+
+
+.tarot-card.flipped .card-inner {
+transform: rotateY(180deg);
+}
+
+
+
+
+
+
+.card-back, .card-front {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+border-radius: 10px;
+}
+
+
+
+
+.card-back {
+ /*
+background: url('https://www.tarot.com/tarot/images/card-back-default.jpg') no-repeat center center;
+*/
+background-size: cover;
+box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+
+
+.card-front {
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #f8f0e3;
+color: #2e2b47;
+font-size: 1em;
+font-family: 'Cinzel', serif;
+transform: rotateY(180deg);
+text-shadow: 0 0 5px rgba(46, 43, 71, 0.7);
+}
+.text{
+ position: absolute;
+ bottom: -30px;
+ color: #FFF;
+ font-size: 1em;
+ left: 50%;
+ transform: translateX(-50%) rotateY(180deg);
+ width: 100%;
+}
+
+
+
+
+#outfitSuggestion {
+margin-top: 20px;
+font-size: 1.1em;
+padding: 10px 15px;
+background-color: rgba(255, 223, 128, 0.15);
+border: 1px solid rgba(255, 223, 128, 0.5);
+border-radius: 8px;
+opacity: 0;
+transition: opacity 0.5s ease;
+color: #f8f0e3;
+box-shadow: 0 0 15px rgba(255, 223, 128, 0.4);
+}
+
+
+
+
+button {
+padding: 10px 20px;
+background-color: #2e2b47;
+color: #f8f0e3;
+border: 1px solid rgba(255, 223, 128, 0.6);
+border-radius: 8px;
+cursor: pointer;
+font-size: 1em;
+font-family: 'Cinzel', serif;
+margin-top: 15px;
+transition: background 0.3s, box-shadow 0.3s;
+}
+
+
+
+
+button:hover {
+background-color: #3a3556;
+box-shadow: 0 0 10px rgba(255, 223, 128, 0.8);
+}
+  </style>
+  <script>
+    /* outfit choice*/
+    const tarotCards = [
+  { name: 'The Fool', outfit: { top: 'Graphic Tee',topUrl: 'www.pacsun.com/metro-boomin-t-shirt-5271507.html?store=PACSUN-1013&country=US&currency=USD&OriginId=GOG&XCIDP=P%3AG_Shopping_PMAX_M_Tops+%3E+Graphic+Tees&gad_source=1&gclid=CjwKCAiA9bq6BhAKEiwAH6bqoM1QIOj5b9W8tM6LIJBPpzgafZfPo2S2x-9Nl1598AiLPzQl9m20BxoCzYQQAvD_BwE&gclsrc=aw.ds', bottom: 'Jeans', Shoes: 'Sneakers' },image: 'images/MW_The_Fool.jpg' },
+  { name: 'The Magician', outfit: { top: 'Blazer', bottom: 'Chinos', Shoes: 'Loafers' },image: 'images/MW_The_Magician.jpg' },
+  { name: 'The Empress', outfit: { top: 'Floral Dress', bottom: 'None', Shoes: 'Sun Hat' },image: 'images/MW_The_Empress.jpg' },
+  { name: 'The Emperor', outfit: { top: 'Button-up Shirt', bottom: 'Trousers', Shoes: 'Leather Shoes' },image: 'images/MW_The_Emperor.jpg' },
+  { name: 'The Star', outfit: { top: 'Sweater', bottom: 'Skirt', Shoes: 'Scarf' },image: 'images/MW_The_Star.jpg' },
+  { name: 'The Moon', outfit: { top: 'Denim Jacket', bottom: 'Leggings', Shoes: 'Boots' },image: 'images/MW_The_Moon.jpg' },
+  { name: 'The Sun', outfit: { top: 'Tank Top', bottom: 'Shorts', Shoes: 'Sunglasses' },image: 'images/MW_The_Sun.jpg' },
+  { name: 'The Tower', outfit: { top: 'Blue Hoodie', bottom: 'Joggers', Shoes: 'Sneakers' },image: 'images/MW_The_Tower.jpg' },
+  { name: 'The High Priestess', outfit: { top: 'Red Hoodie', bottom: 'Black Leather Pants', Shoes: 'Nike Air Force 1' },image: 'images/MW_The_High_Priestess.jpg'},
+  { name: 'The Hierophant', outfit: { top: 'White Nike Crop Top', bottom: 'Levi’s 501 Original Jeans', Shoes: 'Adidas Yeezy Boost 350 V2 in "Zebra"' },image: 'images/MW_The_Hierophant.jpg' },
+  { name: 'The Lovers', outfit: { top: 'Black Adidas Hoodie', bottom: ' Adidas Tiro Training Pants', Shoes: 'White Converse Chuck Taylor All-Star High Tops' },image: 'images/MW_The_Lovers.jpg' },
+  { name: 'The Chariot', outfit: { top: 'Champion Reverse Weave Sweatshirt ', bottom: 'Nike Basketball Short', Shoes: 'Vans Old Skool in Black and White' },image: 'images/MW_The_Chariot.jpg' },
+  { name: 'Strength', outfit: { top: 'Levi’s Denim Jacket ', bottom: 'American Eagle Outfitters Jeggings', Shoes: 'Off-White x Nike Air Max 97 in "The Ten"' },image: 'images/MW_Strength.jpg' },
+  { name: 'The Hermit', outfit: { top: 'Vans Checkerboard T-shirt', bottom: 'Zara Mom Jeans', Shoes: 'Nike Blazer Mid ’77 in White and Red' },image: 'images/MW_The_Hermit.jpg' },
+  { name: 'The Wheel of Fortune', outfit: { top: 'Gucci Logo T-shirt', bottom: 'Gucci Embroidered Denim Skirt', Shoes: 'New Balance 550 in White and Green' },image: 'images/MW_Wheel_of_Fortune.jpg' },
+  { name: 'The Justice', outfit: { top: 'Supreme Box Logo Hoodie', bottom: 'Supreme Cargo Pants', Shoes: 'Puma Suede Classic in Black and Gold' },image: 'images/MW_Justice.jpg' },
+  { name: 'The Hanged Man', outfit: { top: 'Patagonia Better Sweater 1/4-Zip', bottom: 'Patagonia Baggies Shorts', Shoes: 'Jordan 1 Retro High in "University Blue"' },image: 'images/MW_The_Hangedman.jpg' },
+  { name: 'Death', outfit: { top: 'North Face Puffer Jacket', bottom: 'Columbia Convertible Hiking Pants', Shoes: 'Nike Air Jordan 4 in "Bred"' },image: 'images/MW_Death.jpg' },
+  { name: 'Temperance', outfit: { top: 'Ralph Lauren Polo Shirt', bottom: 'Uniqlo Chino Pants', Shoes: 'Adidas Superstar in Black and White Stripes' },image: 'images/MW_Temperance.jpg' },
+  { name: 'The Devil', outfit: { top: 'Uniqlo Flannel Shirt ', bottom: 'Levi’s Denim Overalls', Shoes: 'Reebok Club C 85 in Chalk White' },image: 'images/MW_The_Devil.jpg' },
+  { name: 'Judgement', outfit: { top: 'Off-White Graphic Tee', bottom: 'Off-White C/O Virgil Abloh Jeans', Shoes: 'Asics Gel-Kayano 14 in Silver and Red' },image: 'images/MW_Judgement.jpg' },
+  { name: 'The World', outfit: { top: 'Tommy Hilfiger Cable Knit Sweater', bottom: 'Brooks Brothers Wool Trousers', Shoes: 'White Nike Air VaporMax Plus' },image: 'images/MW_The_World.jpg' },
+  { name: 'Ace of Wands', outfit: { top: 'Zara Cropped Blazer', bottom: 'Zara Plaid Skirt', Shoes: 'Black and White Nike Dunk Low' },image: 'images/MW_Ace_of_Wands.jpg' },
+  { name: 'Two of Wands', outfit: { top: 'H&M Basic White Tee', bottom: 'Hollister Classic Shorts', Shoes: 'Blue and White Nike Air Force One' },image: 'images/MW_Two_of_Wands.jpg'  },
+  { name: 'Three of Wands', outfit: { top: 'American Eagle Outfitters Lace Top', bottom: 'Urban Outfitters Corduroy Pants', Shoes: 'Adidas Yeezy Boost 350 V2 in "Zebra"' },image: 'images/MW_Three_of_Wands.jpg'  },
+  { name: 'Four of Wands', outfit: { top: 'Free People Boho Blouse', bottom: 'Anthropologie Wide Leg Pants', Shoes: 'White Converse Chuck Taylor All-Star High Tops' },image: 'images/MW_Four_of_Wands.jpg'  },
+  { name: 'Five of Wands', outfit: { top: 'Nike Dri-FIT Tank Top', bottom: 'Nike Pro Compression Shorts', Shoes: 'Vans Old Skool in Black and White' },image: 'images/MW_Five_of_Wands.jpg'  },
+  { name: 'Six of Wands', outfit: { top: 'Adidas Originals Track Jacket', bottom: 'Adidas Climalite Yoga Pants', Shoes: 'Off-White x Nike Air Max 97 in "The Ten"' },image: 'images/MW_Six_of_Wands.jpg'  },
+  { name: 'Seven of Wands', outfit: { top: 'Under Armour Compression Shirt', bottom: 'Under Armour HeatGear Leggings', Shoes: 'Nike Blazer Mid ’77 in White and Red' },image: 'images/MW_Seven_of_Wands.jpg'  },
+  { name: 'Eight of Wands', outfit: { top: 'Lululemon Align Tank', bottom: 'Lululemon Fast and Free Tights', Shoes: 'New Balance 550 in White and Green' },image: 'images/MW_Eight_of_Wands.jpg'  },
+  { name: 'Nine of Wands', outfit: { top: 'Puma Sports T-shirt', bottom: 'Reebok Running Tights', Shoes: 'Puma Suede Classic in Black and Gold' },image: 'images/MW_Nine_of_Wands.jpg'  },
+  { name: 'Ten of Wands', outfit: { top: 'Reebok CrossFit Muscle Tank', bottom: 'Gymshark Flex Cycling Shorts', Shoes: 'Jordan 1 Retro High in "University Blue"' },image: 'images/MW_Ten_of_Wands.jpg'  },
+  { name: 'Page of Wands', outfit: { top: 'Athleta Breezy Tank', bottom: 'Brooks Chaser Shorts', Shoes: 'Nike Air Jordan 4 in "Bred"' },image: 'images/MW_Page_of_Wands.jpg'  },
+  { name: 'Knight of Wands', outfit: { top: 'Columbia Omni-Shade Fishing Shirt', bottom: 'North Face Apex Elevation Pants', Shoes: 'Adidas Superstar in Black and White Stripes' },image: 'images/MW_Knight_of_Wands.jpg'  },
+  { name: 'Queen of Wands', outfit: { top: 'Gymshark Seamless Workout Top', bottom: 'New Balance Impact Run Tight', Shoes: 'Reebok Club C 85 in Chalk White' },image: 'images/MW_Queen_of_Wands.jpg'  },
+  { name: 'Ace of Swords', outfit: { top: 'Fabletics High-Impact Sports Bra', bottom: 'Fabletics High-Waisted Legging', Shoes: 'Black and White Nike Dunk Low' },image: 'images/MW_Ace_of_Swords.jpg' },
+  { name: 'Two of Swords', outfit: { top: 'Express Silk Button-Up Shirt', bottom: 'Express Editor Pants', Shoes: 'Blue and White Nike Air Force One' },image: 'images/MW_Two_of_Swords.jpg'  },
+  { name: 'Three of Swords', outfit: { top: 'Banana Republic Cashmere Sweater', bottom: 'Banana Republic Sloan Pants', Shoes: 'Adidas Yeezy Boost 350 V2 in "Zebra"' },image: 'images/MW_Three_of_Swords.jpg'  },
+  { name: 'Four of Swords', outfit: { top: 'J. Crew Blazer', bottom: 'J. Crew Pencil Skirt', Shoes: 'White Converse Chuck Taylor All-Star High Tops' },image: 'images/MW_Four_of_Swords.jpg'  },
+  { name: 'Five of Swords', outfit: { top: 'Brooks Brothers Oxford Shirt', bottom: 'Brooks Brothers Dress Pants', Shoes: 'Vans Old Skool in Black and White' },image: 'images/MW_Five_of_Swords.jpg'  },
+  { name: 'Six of Swords', outfit: { top: 'H&M Slim Fit Turtleneck', bottom: 'H&M Linen Blend Culottes', Shoes: 'Off-White x Nike Air Max 97 in "The Ten"' },image: 'images/MW_Six_of_Swords.jpg'  },
+  { name: 'Seven of Swords', outfit: { top: 'Ted Baker London Floral Blouse', bottom: 'Ted Baker Dress Pants', Shoes: 'Nike Blazer Mid ’77 in White and Red' },image: 'images/MW_Seven_of_Swords.jpg'  },
+  { name: 'Eight of Swords', outfit: { top: 'ASOS Sequin Party Top', bottom: 'ASOS High Waist Trousers', Shoes: 'New Balance 550 in White and Green' },image: 'images/MW_Eight_of_Swords.jpg'  },
+  { name: 'Nine of Swords', outfit: { top: 'Zara Satin Camisole', bottom: 'Zara Suit Trousers', Shoes: 'Puma Suede Classic in Black and Gold' },image: 'images/MW_Nine_of_Swords.jpg'  },
+  { name: 'Ten of Swords', outfit: { top: 'Mango Leather Biker Jacket', bottom: 'Mango Suit Trousers', Shoes: 'Jordan 1 Retro High in "University Blue"' },image: 'images/MW_Ten_of_Swords.jpg'  },
+  { name: 'Page of Swords', outfit: { top: 'Guess Peplum Top', bottom: 'Guess Mini Skirt', Shoes: 'Nike Air Jordan 4 in "Bred"' },image: 'images/MW_Page_of_Swords.jpg'  },
+  { name: 'Knight of Swords', outfit: { top: 'Shein Tie-Dye Hoodie', bottom: 'Diesel Jogg Jeans', Shoes: 'Adidas Superstar in Black and White Stripes' },image: 'images/MW_Knight_of_Swords.jpg'  },
+  { name: 'Queen of Swords', outfit: { top: 'Urban Outfitters Crop Cardigan', bottom: 'Topshop Faux Leather Skirt', Shoes: 'Reebok Club C 85 in Chalk White' },image: 'images/MW_Queen_of_Swords.jpg'  },
+  { name: 'Ace of Cups', outfit: { top: 'PacSun Halter Neck Crop Top', bottom: 'PacSun Essential Jeans', Shoes: 'Black and White Nike Dunk Low' },image: 'images/MW_Ace_of_Cups.jpg' },
+{ name: 'Two of Cups', outfit: { top: 'Moncler Down Vest', bottom: 'Moncler Grenoble Ski Pants', Shoes: 'Blue and White Nike Air Force One' },image: 'images/MW_Two_of_Cups.jpg' },
+{ name: 'Three of Cups', outfit: { top: 'Diesel Distressed Denim Jacket', bottom: 'Diesel Destroyed Boyfriend Jeans', Shoes: 'Adidas Yeezy Boost 350 V2 in "Zebra"' },image: 'images/MW_Three_of_Cups.jpg' },
+{ name: 'Four of Cups', outfit: { top: 'Moschino Pop Art Print Shirt', bottom: 'Dolce & Gabbana Floral Capris', Shoes: 'White Converse Chuck Taylor All-Star High Tops' },image: 'images/MW_Four_of_Cups.jpg' },
+{ name: 'Five of Cups', outfit: { top: 'Dolce & Gabbana Lace Bustier Top', bottom: 'Dolce & Gabbana Tulle Midi Skirt', Shoes: 'Vans Old Skool in Black and White' },image: 'images/MW_Five_of_Cups.jpg' },
+{ name: 'Six of Cups', outfit: { top: 'Balmain Double Breasted Blazer', bottom: 'Saint Laurent Leather Skirt', Shoes: 'Off-White x Nike Air Max 97 in "The Ten"' },image: 'images/MW_Six_of_Cups.jpg' },
+{ name: 'Seven of Cups', outfit: { top: 'Vivienne Westwood Anglomania Shirt', bottom: 'Vivienne Westwood Tartan Skirt', Shoes: 'Nike Blazer Mid ’77 in White and Red' },image: 'images/MW_Seven_of_Cups.jpg' },
+{ name: 'Eight of Cups', outfit: { top: 'Rag & Bone Silk Scarf Top', bottom: 'Rag & Bone High Rise Skinny Jeans', Shoes: 'New Balance 550 in White and Green' },image: 'images/MW_Eight_of_Cups.jpg' },
+{ name: 'Nine of Cups', outfit: { top: 'Acne Studios Graphic Sweatshirt', bottom: 'Acne Studios Pin High Rise Jeans', Shoes: 'Puma Suede Classic in Black and Gold' },image: 'images/MW_Nine_of_Cups.jpg' },
+{ name: 'Ten of Cups', outfit: { top: 'Kenzo Tiger Motif Sweater', bottom: 'Kenzo Printed Joggers', Shoes: 'Jordan 1 Retro High in "University Blue"' },image: 'images/MW_Ten_of_Cups.jpg' },
+{ name: 'Page of Cups', outfit: { top: 'Saint Laurent Leather Peplum Top', bottom: 'Saint Laurent High-Waisted Jeans', Shoes: 'Nike Air Jordan 4 in "Bred"' },image: 'images/MW_Page_of_Cups.jpg' },
+{ name: 'Knight of Cups', outfit: { top: 'Burberry Check Shirt', bottom: 'Burberry Plaid Skirt', Shoes: 'Adidas Superstar in Black and White Stripes' },image: 'images/MW_Knight_of_Cups.jpg' },
+{ name: 'Queen of Cups', outfit: { top: 'Marc Jacobs Sequin Overlay Top', bottom: 'Marc Jacobs Pleated Mini Skirt', Shoes: 'Reebok Club C 85 in Chalk White' },image: 'images/MW_Queen_of_Cups.jpg' },
+{ name: 'Ace of Pentacles', outfit: { top: 'AllSaints Wool Cardigan', bottom: 'AllSaints Leather Mini Skirt', Shoes: 'Black and White Nike Dunk Low' },image: 'images/MW_Ace_of_Pentacles.jpg' },
+{ name: 'Two of Pentacles', outfit: { top: 'Prada Nylon Gabardine Shirt', bottom: 'Prada Technical Ski Pants', Shoes: 'Blue and White Nike Air Force One' },image: 'images/MW_Two_of_Pentacles.jpg'  },
+{ name: 'Three of Pentacles', outfit: { top: 'Armani Exchange Zip-Up Hoodie', bottom: 'Armani Exchange Chino Shorts', Shoes: 'Adidas Yeezy Boost 350 V2 in "Zebra"' },image: 'images/MW_Three_of_Pentacles.jpg'  },
+{ name: 'Four of Pentacles', outfit: { top: 'Scotch & Soda Printed Blouse', bottom: 'Scotch & Soda Patterned Culottes', Shoes: 'White Converse Chuck Taylor All-Star High Tops' },image: 'images/MW_Four_of_Pentacles.jpg'  },
+{ name: 'Five of Pentacles', outfit: { top: 'Versace Baroque Print Shirt', bottom: 'Versace Skinny Jeans', Shoes: 'Vans Old Skool in Black and White' },image: 'images/MW_Five_of_Pentacles.jpg'  },
+{ name: 'Six of Pentacles', outfit: { top: 'Michael Kors Jet Set Logo T-Shirt', bottom: 'Michael Kors Palazzo Pants', Shoes: 'Off-White x Nike Air Max 97 in "The Ten"' },image: 'images/MW_Six_of_Pentacles.jpg'  },
+{ name: 'Seven of Pentacles', outfit: { top: 'Kate Spade New York Bow Neck Top', bottom: 'Kate Spade Pleated Midi Skirt', Shoes: 'Nike Blazer Mid ’77 in White and Red' },image: 'images/MW_Seven_of_Pentacles.jpg'  },
+{ name: 'Eight of Pentacles', outfit: { top: 'Valentino Rockstud Trim Cami', bottom: 'Valentino Wide Leg Jeans', Shoes: 'New Balance 550 in White and Green' },image: 'images/MW_Eight_of_Pentacles.jpg'  },
+{ name: 'Nine of Pentacles', outfit: { top: 'Coach Rexy Sweatshirt', bottom: 'Coach Leather Skirt', Shoes: 'Puma Suede Classic in Black and Gold' },image: 'images/MW_Nine_of_Pentacles.jpg'  },
+{ name: 'Ten of Pentacles', outfit: { top: 'Ralph Lauren Riding Pants', bottom: 'Tommy Hilfiger Denim Shorts', Shoes: 'Jordan 1 Retro High in "University Blue"' },image: 'images/MW_Ten_of_Pentacles.jpg'  },
+{ name: 'Page of Pentacles', outfit: { top: 'Fendi Pleated Silk Skirt', bottom: 'Saint Laurent Sequin Trousers', Shoes: 'Nike Air Jordan 4 in "Bred"' },image: 'images/MW_Page_of_Pentacles.jpg'  },
+{ name: 'Knight of Pentacles', outfit: { top: 'Balenciaga Logo Leggings', bottom: 'Diesel Black Gold Leather Pants', Shoes: 'Adidas Superstar in Black and White Stripes' },image: 'images/MW_Knight_of_Pentacles.jpg'  },
+{ name: 'Queen of Pentacles', outfit: { top: 'Rag & Bone Skinny Jeans', bottom: 'Versace Baroque Print Skirt', Shoes: 'Reebok Club C 85 in Chalk White' },image: 'images/MW_Queen_of_Pentacles.jpg'  },
+{ name: 'King of Pentacles', outfit: { top: 'Graphic tee from H&M', bottom: 'Light-wash jeans from American Eagle', Shoes: 'White sneakers from Adidas' },image: 'images/MW_King_of_Pentacles.jpg'  },
+{ name: 'King of Cups', outfit: { top: 'Fitted white blouse with puff sleeves from Uniqlo', bottom: 'Black tailored trousers from Zara', Shoes: 'Nude loafers from ASOS' },image: 'images/MW_King_of_Cups.jpg'  },
+{ name: 'King of Wands', outfit: { top: 'Ribbed cropped cardigan from Princess Polly', bottom: 'Midi skirt with floral print from Target', Shoes: 'Platform sandals from Steve Madden' },image: 'images/MW_King_of_Wands.jpg'  },
+{ name: 'King of Swords', outfit: { top: 'Satin camisole from Forever 21', bottom: 'Black faux-leather mini skirt from Nasty Gal', Shoes: 'Strappy heels from DSW' },image: 'images/MW_King_of_Swords.jpg'  },
+];
+ let flippedCards = [];
+let flippedOutfits = [];
+ function flipCard(cardElement, index) {
+  if (flippedCards.length >= 3 || cardElement.classList.contains('flipped')) return; // Limit to 3 cards, prevent re-flipping
+   const randomCard = tarotCards[Math.floor(Math.random() * tarotCards.length)];
+  flippedCards.push(randomCard.name);
+  flippedOutfits.push(randomCard.outfit);
+ 
+   cardElement.classList.add('flipped');
+  cardElement.querySelector('.text').textContent = randomCard.name;
+  cardElement.querySelector('.card-front').style = `background-image:url(${randomCard.image});background-size:100% 100% `
+   if (flippedCards.length === 3) {
+    suggestOutfit();
+  }
+}
+
+
+
+
+function suggestOutfit() {
+  const top = flippedOutfits[0].top;
+  const bottom = flippedOutfits[1].bottom;
+  const Shoes = flippedOutfits[2].Shoes;
+   document.getElementById('outfitSuggestion').innerHTML = `
+    Your outfit today is: <br>
+    <strong>Top:</strong> ${top}<br> //into a string
+    <strong>Bottom:</strong> ${bottom}<br>
+    <strong>Shoes:</strong> ${Shoes} //make it a list
+  `;
+  document.getElementById('outfitSuggestion').style.opacity = 1;
+ 
+  document.getElementById('outfitSuggestion').innerHTML = `
+       Your outfit today is: <br>
+       <strong>Top:</strong> <a href="${topUrl}" target="_blank">${top.item}</a><br>
+       <strong>Bottom:</strong> <a href="${bottomUrl}" target="_blank">${bottom.item}</a><br>
+       <strong>Shoes:</strong> <a href="${shoesUrl}" target="_blank">${shoes.item}</a>
+   `;
+   document.getElementById('outfitSuggestion').style.opacity = 1; // Fade-in effect
+}
+  function resetGame() {
+  flippedCards = [];
+  flippedOutfits = [];
+  document.getElementById('outfitSuggestion').style.opacity = 0;
+  document.getElementById('outfitSuggestion').innerHTML = '';
+   const cardElements = document.querySelectorAll('.tarot-card');
+  cardElements.forEach(card => {
+    card.classList.remove('flipped');
+    card.querySelector('.card-front').textContent = '';
+    card.querySelector('.card-front').style = "background:url('')";
+    card.querySelector('.text').textContent = '';
+  });
+}
+/*
+Inspirations: Maria Burlando& Flipping Tarots@Codepen, patriciarealini&Tarot Project@Github, strife013&EgretCard@Github,
+*/
+    </script>
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -217,8 +217,8 @@ box-shadow: 0 0 10px rgba(255, 223, 128, 0.8);
   <script>
     /* outfit choice*/
     const tarotCards = [
-  { name: 'The Fool', outfit: { top: 'Graphic Tee',topUrl: 'www.pacsun.com/metro-boomin-t-shirt-5271507.html?store=PACSUN-1013&country=US&currency=USD&OriginId=GOG&XCIDP=P%3AG_Shopping_PMAX_M_Tops+%3E+Graphic+Tees&gad_source=1&gclid=CjwKCAiA9bq6BhAKEiwAH6bqoM1QIOj5b9W8tM6LIJBPpzgafZfPo2S2x-9Nl1598AiLPzQl9m20BxoCzYQQAvD_BwE&gclsrc=aw.ds', bottom: 'Jeans', Shoes: 'Sneakers' },image: 'images/MW_The_Fool.jpg' },
-  { name: 'The Magician', outfit: { top: 'Blazer', bottom: 'Chinos', Shoes: 'Loafers' },image: 'images/MW_The_Magician.jpg' },
+  { name: 'The Fool', outfit: { top: 'Graphic Tee',bottom: 'Jeans', Shoes: 'Sneakers' },image: 'images/Card image:small/MW_The_Fool.jpg' },
+  { name: 'The Magician', outfit: { top: 'Blazer', bottom: 'Chinos', Shoes: 'Loafers' },image: 'images/Card image:small/MW_The_Magician.jpg' },
   { name: 'The Empress', outfit: { top: 'Floral Dress', bottom: 'None', Shoes: 'Sun Hat' },image: 'images/MW_The_Empress.jpg' },
   { name: 'The Emperor', outfit: { top: 'Button-up Shirt', bottom: 'Trousers', Shoes: 'Leather Shoes' },image: 'images/MW_The_Emperor.jpg' },
   { name: 'The Star', outfit: { top: 'Sweater', bottom: 'Skirt', Shoes: 'Scarf' },image: 'images/MW_The_Star.jpg' },
@@ -299,7 +299,7 @@ box-shadow: 0 0 10px rgba(255, 223, 128, 0.8);
  let flippedCards = [];
 let flippedOutfits = [];
  function flipCard(cardElement, index) {
-  if (flippedCards.length >= 3 || cardElement.classList.contains('flipped')) return; // Limit to 3 cards, prevent re-flipping
+  if (flippedCards.length >= 3 || cardElement.classList.contains('flipped')) return; 
    const randomCard = tarotCards[Math.floor(Math.random() * tarotCards.length)];
   flippedCards.push(randomCard.name);
   flippedOutfits.push(randomCard.outfit);
@@ -321,19 +321,21 @@ function suggestOutfit() {
   const Shoes = flippedOutfits[2].Shoes;
    document.getElementById('outfitSuggestion').innerHTML = `
     Your outfit today is: <br>
-    <strong>Top:</strong> ${top}<br> //into a string
+    <strong>Top:</strong> ${top}<br> 
     <strong>Bottom:</strong> ${bottom}<br>
-    <strong>Shoes:</strong> ${Shoes} //make it a list
+    <strong>Shoes:</strong> ${Shoes} 
+  
   `;
-  document.getElementById('outfitSuggestion').style.opacity = 1;
- 
+  document.getElementById('outfitSuggestion').style.opacity = 1; 
+ /*
   document.getElementById('outfitSuggestion').innerHTML = `
        Your outfit today is: <br>
        <strong>Top:</strong> <a href="${topUrl}" target="_blank">${top.item}</a><br>
        <strong>Bottom:</strong> <a href="${bottomUrl}" target="_blank">${bottom.item}</a><br>
        <strong>Shoes:</strong> <a href="${shoesUrl}" target="_blank">${shoes.item}</a>
    `;
-   document.getElementById('outfitSuggestion').style.opacity = 1; // Fade-in effect
+   document.getElementById('outfitSuggestion').style.opacity = 1; //加网址应该是这么写的吧
+   */ 
 }
   function resetGame() {
   flippedCards = [];

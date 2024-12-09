@@ -47,7 +47,7 @@
   <a href="images/Card image:small/guide.pdf" target="_blank">Guide</a>
   <a href="images/Card image:small/CM523 Proposal .pdf" target="_blank">Proposal</a>
   <a href="images/Card image:small/CM523 UX report.pdf" target="_blank">UX Report</a>
-  <a href="images/Card image:small/Linda Jaing_ Social Media Crit  .pdf" target="_blank">Source</a>
+  <a href="images/Card image:small/about pdf.pdf" target="_blank">About</a>
   <a href="images/Card image:small/Tarot card wireframe.pdf" target="_blank">Wireframe</a>
 </div>
 
@@ -267,7 +267,7 @@ box-shadow: 0 0 10px rgba(255, 223, 128, 0.8);  /*按钮变化*/
   <script>
     /* 78套衣服*/ /* 初始化塔罗牌数据 */
     const tarotCards = [ // 每张卡的名称、着装建议和图片路径
-  { name: 'The Fool', outfit: { top: 'Graphic Tee',bottom: 'Jeans', Shoes: 'Sneakers' },image: 'images/Card image:small/MW_The_Fool.jpg' },
+  { name: 'The Fool', outfit: { top: 'Graphic Tee',bottom: 'Jeans', Shoes: 'Sneakers', topfile:'http:www.google.com/search?sca_esv=face10566ce46e9f&q=Jeans&udm=28&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWxyMMuf0D-HOMEpzq2zertRy7G-dme1ONMLTCBvZzSljMphIA67BHfsctJ2w0qFNR22bQl2ODcl1a39cIgc9M-LXurhNm8095qZn6y2RjzAXRQhENRJ12c0RxmDNWHHdLmJ-X4UCeD-qlnxtwmbZ9-wDgEfmR9n7TtWe5bKJWtQmtTVVJbHs0HlOgpJE6D1qOrvzvHA&ved=1t:220175&ictx=111#:~:text=AE%20Dreamy%20Drape-,Stretch,-Super%20High%2DWaisted%20Baggy%20Wide%2DLeg%20Jean%20Women%27s', bottomfile:'https://www.goldengoose.com/us/en/super-star-young-in-nappa-with-a-printed-star-and-black-heel-tab-cod-8050235503519.html?utm_source=google&utm_medium=cpc&utm_campaign=gg_ao.us.allproducts.nobrand.pmax.conv.perf_cpc_google_conv_purchase__perf&gad_source=1&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkUN3TQ2MRbpXJt7u9L4Ly66yUq4_XyOBwmZ2LJMohb6sAgVR3CgXI4aAupoEALw_wcB', shoefile:'https://www.goldengoose.com/us/en/super-star-young-in-nappa-with-a-printed-star-and-black-heel-tab-cod-8050235503519.html?utm_source=google&utm_medium=cpc&utm_campaign=gg_ao.us.allproducts.nobrand.pmax.conv.perf_cpc_google_conv_purchase__perf&gad_source=1&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkUN3TQ2MRbpXJt7u9L4Ly66yUq4_XyOBwmZ2LJMohb6sAgVR3CgXI4aAupoEALw_wcB'},image: 'images/Card image:small/MW_The_Fool.jpg' },
   { name: 'The Magician', outfit: { top: 'Blazer', bottom: 'Chinos', Shoes: 'Loafers' },image: 'images/Card image:small/MW_The_Magician.jpg' },
   { name: 'The Empress', outfit: { top: 'Floral Dress', bottom: 'None', Shoes: 'Sun Hat' },image: 'images/Card image:small/MW_The_Empress.jpg' },
   { name: 'The Emperor', outfit: { top: 'Button-up Shirt', bottom: 'Trousers', Shoes: 'Leather Shoes' },image: 'images/Card image:small/MW_The_Emperor.jpg' },
@@ -380,11 +380,14 @@ function suggestOutfit() {
   const top = flippedOutfits[0].top;
   const bottom = flippedOutfits[1].bottom;
   const shoes = flippedOutfits[2].Shoes;
+  const topFile = flippedOutfits[0].file;
+  const bottomFile = flippedOutfits[1].file;
+  const shoesFile = flippedOutfits[2].file;
   document.getElementById('outfitSuggestion').innerHTML = `
     Your outfit today is: <br>
-    <strong>Top:</strong> ${top}<br> 
-    <strong>Bottom:</strong> ${bottom}<br>
-    <strong>Shoes:</strong> ${shoes}
+    <strong>Top:</strong><a  style='color:#fff;text-decoration: none;' href='${topFile}' target="_blank">${top}</a> <br> 
+    <strong>Bottom:</strong> <a style='color:#fff;text-decoration: none;' href='${bottomFile}' target="_blank">${bottom}</a><br>
+    <strong>Shoes:</strong> <a style='color:#fff;text-decoration: none;' href='${shoesFile}' target="_blank">${shoes}</a>
   `;
   document.getElementById('outfitSuggestion').style.opacity = 1;
 }
@@ -405,9 +408,6 @@ function resetGame() {
   });
 }
 
-/*
-Inspirations: Maria Burlando& Flipping Tarots@Codepen, patriciarealini&Tarot Project@Github, strife013&EgretCard@Github,
-*/
     </script>
 </body>
 </html>

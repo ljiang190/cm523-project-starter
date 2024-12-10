@@ -80,15 +80,15 @@
   { name: 'King of Swords', outfit: { top: 'Satin camisole from Forever 21', bottom: 'Black faux-leather mini skirt from Nasty Gal', Shoes: 'Strappy heels from DSW', topfile:'https://www.google.com/aclk?sa=l&ai=DChcSEwjJ-7--_pmKAxVwW0cBHUiyB7MYABAGGgJxdQ&co=1&ase=2&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkWP-rT89mgRcpZy6RWdHlkzgAUY5FPxO2wxhYyzjSdYe9EAvs4J2bYaArkUEALw_wcB&sig=AOD64_39HJoNUFhjXbq7mrV32vlpFymGTg&ctype=5&q=&nis=4&ved=2ahUKEwj9yLm-_pmKAxXiD1kFHSatPFsQwg8oAXoECAgQCw&adurl=', bottomfile:'https://www.google.com/aclk?sa=l&ai=DChcSEwiG6-u2_pmKAxW_V0cBHV19HukYABAwGgJxdQ&co=1&ase=2&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkUaABNHKHHQogY2L5jO0IA4BjgoO6uq1nu044NzIiakTECsBOpQJzIaAgDDEALw_wcB&sig=AOD64_2ryj0mWCQxTLqvSRtmHKNPvHU46A&ctype=5&q=&nis=4&ved=2ahUKEwiJ_-O2_pmKAxWXMlkFHfoaKPEQwg8oAXoECAcQDA&adurl=', shoefile:'https://www.google.com/aclk?sa=l&ai=DChcSEwjwnIin_pmKAxVjX0cBHYVCAa4YABAmGgJxdQ&co=1&ase=2&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkU7SDJ1uxJaKOpFn849OGYeBSXTp2luHevWSAf5_2-KzEdQa3NvknoaAjWxEALw_wcB&sig=AOD64_0NDWTdF9g3zFMI4-J5QL-TCK1Bvw&ctype=5&q=&nis=4&ved=2ahUKEwjS_YCn_pmKAxUFEmIAHXdQOGoQwg8oAXoECAgQCw&adurl=' },image: 'images/Card image:small/MW_King_of_Swords.jpg'  },
   ];
   
-  let flippedCards = [];
-  let flippedOutfits = []; // 用于跟踪已翻转卡片和着装细节的全局数组
+  let flippedCards = []; // 用于存储已翻转卡片的全局数组
+  let flippedOutfits = []; // 用于跟踪着装细节的全局数组
   
   function flipCard(cardElement) {
-    if (flippedCards.length >= 3 || cardElement.classList.contains('flipped')) return;   // 如果已经翻转了三张卡片或当前卡片已翻转，则不执行任何操作
+    if (flippedCards.length >= 3 || cardElement.classList.contains('flipped')) return;   // 如果已经翻转了三张卡片或当前卡片已翻转，则推出函数
   
     //s随机选卡
     const randomCard = tarotCards[Math.floor(Math.random() * tarotCards.length)];
-    flippedCards.push(randomCard.name);
+    flippedCards.push(randomCard.name); // 将卡片的名称和着装信息分别存储到全局数组中
     flippedOutfits.push(randomCard.outfit);
   
     // 选卡之后记住，标记为已翻卡
@@ -113,7 +113,7 @@
     const top = flippedOutfits[0].top;
     const bottom = flippedOutfits[1].bottom;
     const shoes = flippedOutfits[2].Shoes;
-    const topFile = flippedOutfits[0].topfile;
+    const topFile = flippedOutfits[0].topfile;  //对应链接
     const bottomFile = flippedOutfits[1].bottomfile;
     const shoesFile = flippedOutfits[2].shoefile;
     document.getElementById('outfitSuggestion').innerHTML = `
@@ -122,10 +122,10 @@
       <strong>Bottom:</strong> <a style='color:#fff;text-decoration: none;' href='${bottomFile}' target="_blank">${bottom}</a><br>
       <strong>Shoes:</strong> <a style='color:#fff;text-decoration: none;' href='${shoesFile}' target="_blank">${shoes}</a>
     `; //颜色不同 方便辨别链接
-    document.getElementById('outfitSuggestion').style.opacity = 1;
+    document.getElementById('outfitSuggestion').style.opacity = 1; //显示通过调整透明度实现
   }
   // 重置游戏
-  function resetGame() {
+  function resetGame() {  //动态插入HTML
     flippedCards = [];
     flippedOutfits = [];
     document.getElementById('outfitSuggestion').style.opacity = 0;

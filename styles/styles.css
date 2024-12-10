@@ -136,7 +136,19 @@
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
   } /*翻卡特效*/
   
-  
+  @media (max-width: 390px) {  
+    .tarot-container {
+        flex-direction: row; 
+        gap: 1px; 
+        margin-bottom: 10px; 
+    } /*卡盒子，和手机模式iphone12pro*/
+}
+@media (max-width: 430px) {  
+    .tarot-container {
+        flex-direction: row; 
+        gap: 1px; 
+        margin-bottom: 10px; 
+    } /*卡盒子，和手机模式iphone14promax*/
   
   
   

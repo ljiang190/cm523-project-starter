@@ -228,7 +228,7 @@ text-shadow: 0 0 5px rgba(46, 43, 71, 0.7);
  color: #FFF;
  font-size: 1em;
  left: 50%;
- transform: translateX(-50%) rotateY(180deg);
+ transform: translateX(-50%) rotateY(180deg); /*按y轴翻转180度*/
  width: 100%; /*卡名字*/
 }
 
@@ -271,7 +271,7 @@ transition: background 0.3s, box-shadow 0.3s;
 button:hover {
 background-color: #3a3556;
 box-shadow: 0 0 10px rgba(255, 223, 128, 0.8);  /*按钮变化*/
-}
+} /*烙铁我真的一滴都没了*/
 
   </style>
 
@@ -279,7 +279,7 @@ box-shadow: 0 0 10px rgba(255, 223, 128, 0.8);  /*按钮变化*/
 
   <script>
     /* 78套衣服*/ /* 初始化塔罗牌数据 */
-    const tarotCards = [ // 每张卡的名称、着装建议和图片路径
+    const tarotCards = [ // 每张卡的名称、着装建议和图片路径，网址路径
   { name: 'The Fool', outfit: { top: 'Graphic Tee',bottom: 'Jeans', Shoes: 'Sneakers', topfile:'http:www.google.com/search?sca_esv=face10566ce46e9f&q=Jeans&udm=28&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWxyMMuf0D-HOMEpzq2zertRy7G-dme1ONMLTCBvZzSljMphIA67BHfsctJ2w0qFNR22bQl2ODcl1a39cIgc9M-LXurhNm8095qZn6y2RjzAXRQhENRJ12c0RxmDNWHHdLmJ-X4UCeD-qlnxtwmbZ9-wDgEfmR9n7TtWe5bKJWtQmtTVVJbHs0HlOgpJE6D1qOrvzvHA&ved=1t:220175&ictx=111#:~:text=AE%20Dreamy%20Drape-,Stretch,-Super%20High%2DWaisted%20Baggy%20Wide%2DLeg%20Jean%20Women%27s', bottomfile:'https://www.google.com/search?sca_esv=face10566ce46e9f&q=Jeans&udm=28&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWxyMMuf0D-HOMEpzq2zertRy7G-dme1ONMLTCBvZzSljMphIA67BHfsctJ2w0qFNR22bQl2ODcl1a39cIgc9M-LXurhNm8095qZn6y2RjzAXRQhENRJ12c0RxmDNWHHdLmJ-X4UCeD-qlnxtwmbZ9-wDgEfmR9n7TtWe5bKJWtQmtTVVJbHs0HlOgpJE6D1qOrvzvHA&ved=1t:220175&ictx=111#:~:text=AE%20Dreamy%20Drape-,Stretch,-Super%20High%2DWaisted%20Baggy%20Wide%2DLeg%20Jean%20Women%27s', shoefile:'https://www.goldengoose.com/us/en/super-star-young-in-nappa-with-a-printed-star-and-black-heel-tab-cod-8050235503519.html?utm_source=google&utm_medium=cpc&utm_campaign=gg_ao.us.allproducts.nobrand.pmax.conv.perf_cpc_google_conv_purchase__perf&gad_source=1&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkUN3TQ2MRbpXJt7u9L4Ly66yUq4_XyOBwmZ2LJMohb6sAgVR3CgXI4aAupoEALw_wcB'},image: 'images/Card image:small/MW_The_Fool.jpg' },
   { name: 'The Magician', outfit: { top: 'Blazer', bottom: 'Chinos', Shoes: 'Loafers', topfile:'https://bananarepublicfactory.gapfactory.com/browse/product.do?pid=531492021&vid=1&tid=bfpl000032&kwid=1&ap=7&gad_source=1&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkVILuY1vU-Gzja6kBwBt8AiZGN88lLQWi0UWKi68FhPiDYJkN9X8iQaAkgzEALw_wcB&gclsrc=aw.ds', bottomfile:'https://us.dockers.com/collections/mens-chino-pants?srsltid=AfmBOoozF01MAuRa0gig0bhp4tXOFimeTk7AqZ6tzjC3VEkwZXdsmd9P', shoefile:'https://www.samedelman.com/product/womens-loraine-bit-loafer-3016088/cabernet-red-leather-ec0203515?partnerid=paid_search_google_pla_pmax-loafers-flats&gad_source=1&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkVsHh3e9qgwxCTXdoSPxs0MLVIY55WaIUZiY2N6mk2EVqX8Cj6Rn2IaAv4cEALw_wcB' },image: 'images/Card image:small/MW_The_Magician.jpg' },
   { name: 'The Empress', outfit: { top: 'Floral Dress', bottom: 'None', Shoes: 'Sun Hat', topfile:'https://www.google.com/aclk?sa=l&ai=DChcSEwjG_5nqmpmKAxXeYkcBHRbxI9IYABAgGgJxdQ&co=1&ase=2&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkU7oda7RpqVK9tmafGyG_SFQurwrv1NtXRJ7OgYp3gej2rwyBdrSRUaAtolEALw_wcB&sig=AOD64_1aOMXfzPAtWuBpoYx4jBxXSWcmuA&ctype=5&q=&nis=4&ved=2ahUKEwiT3JLqmpmKAxUgEFkFHU56JCUQwg8oAXoECAwQDA&adurl=', bottomfile:'https://www.google.com/imgres?q=naked&imgurl=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2024%2F11%2F28%2Fmultimedia%2F27naked-museum-cqkf%2F27naked-museum-cqkf-articleLarge.jpg%3Fquality%3D75%26auto%3Dwebp%26disable%3Dupscale&imgrefurl=https%3A%2F%2Fwww.nytimes.com%2F2024%2F11%2F27%2Farts%2Fdesign%2Fnaturism-exhibition-naked-mucem-marseille.html&docid=VAQ9xsK0DfqnjM&tbnid=nm8eWJsK8JXqqM&vet=12ahUKEwigwez4mpmKAxXPEVkFHSW1LTAQM3oECBUQAA..i&w=600&h=400&hcb=2&ved=2ahUKEwigwez4mpmKAxXPEVkFHSW1LTAQM3oECBUQAA', shoefile:'https://www.google.com/aclk?sa=l&ai=DChcSEwjcj8-Cm5mKAxUeSUcBHefVCP0YABABGgJxdQ&co=1&ase=2&gclid=Cj0KCQiApNW6BhD5ARIsACmEbkX4EnyoAxMTWZ_m5SD4tg1t76ygV9uZqF4bJo9zuCvA1p5PaDlX_poaArYtEALw_wcB&sig=AOD64_3CCvObv5qM41rJI_hTStMjRQBYdA&ctype=5&q=&nis=4&ved=2ahUKEwjApcmCm5mKAxXSE1kFHUh2AfEQww8oAnoECAUQDA&adurl=' },image: 'images/Card image:small/MW_The_Empress.jpg' },
@@ -400,15 +400,15 @@ function suggestOutfit() {
     Your outfit today is: <br>
     <strong>Top:</strong><a  style='color:#fff;text-decoration: none;' href='${topFile}' target="_blank">${top}</a> <br> 
     <strong>Bottom:</strong> <a style='color:#fff;text-decoration: none;' href='${bottomFile}' target="_blank">${bottom}</a><br>
-    <strong>Shoes:</strong> <a style='color:#fff;text-decoration: none;' href='${shoesFile}' target="_blank">${shoes}</a>
-  `;
-  document.getElementById('outfitSuggestion').style.opacity = 1;
+    <strong>Shoes:</strong> <a style='color:#fff;text-decoration: none;' href='${shoesFile}' target="_blank">${shoes}</a> 
+  `;//sb呢写他妈半天
+  document.getElementById('outfitSuggestion').style.opacity = 1;//透明度调整
 }
 // 重置游戏
 function resetGame() {
   flippedCards = [];
   flippedOutfits = [];
-  document.getElementById('outfitSuggestion').style.opacity = 0;
+  document.getElementById('outfitSuggestion').style.opacity = 0;//按照透明度调整
   document.getElementById('outfitSuggestion').innerHTML = '';
 
   // 该上哪呆着上哪呆着去
@@ -419,7 +419,7 @@ function resetGame() {
     cardFront.style.backgroundSize = ''; // 删除背景图片尺寸
     card.querySelector('.text').textContent = ''; // 删除文本
   });
-}
+} //哈哈写完了皇帝归来
 
     </script>
 </body>
